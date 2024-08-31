@@ -1,0 +1,126 @@
+﻿@model IEnumerable<EmployeeViewModel>;
+@{
+    ViewData["Title"] = "Index";
+    string viewDATAMessage = ViewData["Message"] as string; // Required Type Casting ;
+    string viewBagMessage = ViewBag.SecMessage;
+    
+}
+
+<h1>All Emplyee</h1>
+
+@* 
+<div class="alert alert-primary">
+    <p>@ViewData["Message"]</p>
+     <p>@ViewBag.SecMessage</p> 
+</div>  *@
+
+
+
+@if (!string.IsNullOrEmpty(TempData["Message"] as string))
+{
+    <div id="alertMessage" class="alert alert-primary">
+        <p>@TempData["Message"]</p>
+    </div>
+}
+
+
+
+
+
+
+
+<a asp-controller="Employee" asp-action="Create" class="btn btn-primary mb-4">Create Employee</a>
+
+<form  asp-action="Index">
+
+    <div class="d-flex align-items-center justify-content-center">
+        <input type="text" class="form-control col-md-10" name="searchInput" id="searchInput" />
+        <input type="submit" value="Search" class="btn btn-success col-md-2 m-3" />
+    </div>
+
+</form>
+@if(Model.Count() > 0)
+{
+   <div class="container">
+        <table class="table table-striped table-hover text-center" style="padding-left: 150px;">
+
+            <thead>
+            </thead>
+            <tr>
+
+
+                @* <th> @Html.DisplayNameFor(d => d.Id)</th> *@
+                <th> @Html.DisplayNameFor(d => d.Image)</th>
+
+                <th> @Html.DisplayNameFor(d => d.Name)</th>
+                <th> @Html.DisplayNameFor(d => d.Age)</th>
+
+                <th> @Html.DisplayNameFor(d => d.Salary)</th>
+                <th> @Html.DisplayNameFor(d => d.Address)</th>
+                <th> @Html.DisplayNameFor(d => d.Phone)</th>
+                <th> @Html.DisplayNameFor(d => d.Email)</th>
+                <th> @Html.DisplayNameFor(d => d.Department)</th>
+
+                <th> @Html.DisplayNameFor(d => d.DateOfCreation)</th>
+                <th> @Html.DisplayNameFor(d => d.HiringDate)</th>
+
+                <th> @Html.DisplayNameFor(d => d.IsDeleted)</th>
+                <th> @Html.DisplayNameFor(d => d.IsActive)</th>
+
+
+
+
+
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+
+
+            </tr>
+            <tbody>
+                @foreach (var department in Model)
+                {
+                    <tr>
+                        @* <td>@department.Id</td> *@
+                        <td>
+                            <img src="~/files/images/@department.ImageName" width="75" class="img-fluid rounded-circle" />
+                         
+                            
+                        </td>
+
+                        <td>@department.Name</td>
+                        <td>@department.Age</td>
+
+
+                        <td>@department.Salary</td>
+                        <td>@department.Address</td>
+                        <td>@department.Phone</td>
+                        <td>@department.Email</td>
+
+                        <td>@department.Department?.Name</td>
+
+
+                        <td>@department.DateOfCreation</td>
+                        <td>@department.HiringDate</td>
+                        <td>@department.IsDeleted</td>
+                        <td>@department.IsActive</td>
+
+
+
+                        <partial name="_ButtonsTable" model="(@department.Id).ToString()" />
+
+
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+   </div>
+}
+else
+{
+    <div class="mt-4 alert alert-danger">
+        <h4>There is No Employee  To Show : </h4>
+    </div>
+}

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<UserViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>All Users </h1>
+
+
+<form asp-action="Index">
+
+    <div class="d-flex align-items-center justify-content-center">
+        <input type="text" class="form-control col-md-10" name="searchInput" id="searchInput" />
+        <input type="submit" value="Search" class="btn btn-success col-md-2 m-3" />
+    </div>
+
+</form>
+
+
+
+       
+   
+
+@if (Model.Count() > 0)
+{
+    <div class="container">
+        <table class="table table-striped table-hover text-center" style="padding-left: 150px;">
+
+            <thead>
+            </thead>
+            <tr>
+
+
+                 <th> @Html.DisplayNameFor(d => d.Id)</th> 
+              
+
+                    <th> @Html.DisplayNameFor(d => d.FirstName)</th>
+                    <th> @Html.DisplayNameFor(d => d.LastName)</th>
+
+                    <th> @Html.DisplayNameFor(d => d.Email)</th>
+           
+                    <th> @Html.DisplayNameFor(d => d.Roles)</th>
+               
+
+
+
+
+
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+
+
+            </tr>
+            <tbody>
+                @foreach (var department in Model)
+                {
+                    <tr>
+                       <td>@department.Id</td>
+
+
+                            <td>@department.FirstName</td>
+                            <td>@department.LastName</td>
+
+
+                            <td>@department.Email</td>
+
+
+
+                            <td>@string.Join(" ", department.Roles)</td>
+
+                        
+
+
+
+                        <partial name="_ButtonsTable" model="@department.Id" />
+
+
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+    </div>
+}
+else
+{
+    <div class="mt-4 alert alert-danger">
+        <h4>There is No Employee  To Show : </h4>
+    </div>
+}
+

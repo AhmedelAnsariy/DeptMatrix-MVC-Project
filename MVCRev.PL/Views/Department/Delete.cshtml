@@ -1,0 +1,22 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete Department</h1>
+
+
+<form asp-action="Delete">
+   
+
+    <partial name="PartialViews/DeleteDetailsPV" model="Model"/>
+
+
+
+
+   
+    <input  type="submit" value="Delete" class="btn btn-danger mt-4"/>
+
+    <a asp-action="Index" class="btn btn-warning mt-4 mx-3">Back To List</a>
+</form>
+
